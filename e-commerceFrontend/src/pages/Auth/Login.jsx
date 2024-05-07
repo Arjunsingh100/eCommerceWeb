@@ -32,7 +32,7 @@ const Login = () => {
         e.preventDefault();
         try{
             if (formValidation()) {
-                const status = await axios.post('http://localhost:5000/api/v1/auth/login', {
+                const status = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/auth/login', {
                     email:email,
                     password: password,
                 })

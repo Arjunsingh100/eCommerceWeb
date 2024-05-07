@@ -13,7 +13,7 @@ const ForgetPassword = () => {
 
     const handleSubmit = async () => {
         try {
-            const user = await axios.post('http://localhost:5000/api/v1/auth/forget-password', {
+            const user = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/auth/forget-password', {
                 email: email,
                 answer: answer,
                 newPassword: newPassword,

@@ -36,7 +36,7 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const { data } = await axios.put('http://localhost:5000/api/v1/auth/profile', {
+    const { data } = await axios.put('https://ecommerceweb-1.onrender.com/api/v1/auth/profile', {
       name: name,
       email: email,
       password: password,
@@ -54,7 +54,6 @@ const Profile = () => {
       localStorage.setItem('auth', JSON.stringify(ls))
       toast.success("User Updated Successfully");
     }
-    console.log(data)
   }
 
   return (

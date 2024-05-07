@@ -21,7 +21,7 @@ const CreateProduct = () => {
   const [shipping, setShipping] = useState(null);
 
   const getAllCategories = async () => {
-    const allCategories = await axios.get('http://localhost:5000/api/v1/category/get-categories');
+    const allCategories = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/category/get-categories');
     if (allCategories?.data.success) {
       setCategories(allCategories?.data?.allCategories)
     }
@@ -43,8 +43,8 @@ const CreateProduct = () => {
       newProductData.append("description", description)
       newProductData.append("quantity", quantity);
       newProductData.append("shipping", shipping)
-      const { data } = await axios.post('http://localhost:5000/api/v1/products/create-product', newProductData);
-      console.log(data)
+      const { data } = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/products/create-product', newProductData);
+     
 
       if (data?.success) {
         toast.success(data?.success);

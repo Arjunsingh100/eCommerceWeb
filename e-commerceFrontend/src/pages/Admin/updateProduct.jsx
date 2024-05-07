@@ -26,7 +26,7 @@ const UpdateProduct = () => {
 
     const getAllCategories = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/v1/category/get-categories');
+            const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/category/get-categories');
             if (data?.success) {
                 setCategories(data?.allCategories)
             }
@@ -41,7 +41,7 @@ const UpdateProduct = () => {
     }, [])
     const getSingleProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/products/get-product/${param.slug}`);
+            const { data } = await axios.get(`https://ecommerceweb-1.onrender.com/api/v1/products/get-product/${param.slug}`);
             setName(data?.singleProduct?.name)
             setDescription(data?.singleProduct?.description)
             setCategory(data?.singleProduct?.category?.name)
@@ -49,7 +49,6 @@ const UpdateProduct = () => {
             setQuantity(data?.singleProduct?.quantity)
             setShipping(data?.singleProduct?.shipping)
             setId(data?.singleProduct?._id)
-            console.log(data)
         }
         catch (error) {
             console.log(error)
@@ -70,10 +69,7 @@ const UpdateProduct = () => {
             updatedProductData.append("description", description)
             updatedProductData.append("quantity", quantity)
             updatedProductData.append("shipping", shipping);
-            console.log(updatedProductData.files)
-            console.log(updatedProductData.get(name))
-            console.log(updatedProductData)
-            const { data } = await axios.put(`http://localhost:5000/api/v1/products/update-product/${id}`,  {updatedProductData});
+            const { data } = await axios.put(`https://ecommerceweb-1.onrender.com/api/v1/products/update-product/${id}`,  {updatedProductData});
             if (data?.success) {
                 toast.success(data?.message);
                 navigate('/dashboard/admin/products')
@@ -89,7 +85,7 @@ const UpdateProduct = () => {
     }
     const handleDeleteProduct = async ()=>{
         try{
-            const {data} = await axios.delete(`http://localhost:5000/api/v1/products/delete-product/${id}`);
+            const {data} = await axios.delete(`https://ecommerceweb-1.onrender.com/api/v1/products/delete-product/${id}`);
             if(data?.success){
                 toast.success(data?.success)
                 navigate('/dashboard/admin/products');
@@ -141,7 +137,7 @@ const UpdateProduct = () => {
                                 { (
                                     <div className="text-center">
                                         <img
-                                            src={photo  ? URL.createObjectURL(photo) :`http://localhost:5000/api/v1/products/get-photo/${id}`}
+                                            src={photo  ? URL.createObjectURL(photo) :`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${id}`}
                                             alt="product_photo"
                                             height={"200px"}
                                             className="img img-responsive"

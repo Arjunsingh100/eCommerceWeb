@@ -15,7 +15,7 @@ const Search = () => {
                         {search.results.length > 0 ? ( search.results.map((product) => {
                                 return (
                                     <div key={product._id} className='product'>
-                                        <img style={{ width: '200px', height: '200px' }} src={`http://localhost:5000/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                                        <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                                         <div>
                                             <h5>{product.name}</h5>
                                             <p>{product.price}</p>

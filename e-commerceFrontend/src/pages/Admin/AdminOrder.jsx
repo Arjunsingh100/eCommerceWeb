@@ -17,7 +17,7 @@ const AdminOrder = () => {
     const [orders, setOrders] = useState([]);
     const getOrders = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/v1/products/getAdminOrders');
+            const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/getAdminOrders');
             setOrders(data?.orders)
         } catch (error) {
             console.log(error)
@@ -30,7 +30,7 @@ const AdminOrder = () => {
 
     const handleChange = async (id, value) => {
         try {
-            const { data } = await axios.put(`http://localhost:5000/api/v1/products/updateOrderStatus/${id}`,{status:value});
+            const { data } = await axios.put(`/api/v1/products/updateOrderStatus/${id}`,{status:value});
             if (data?.success) { getOrders() }
         } catch (error) {
             console.log(error)
@@ -76,7 +76,7 @@ const AdminOrder = () => {
                                                 order?.products?.map((product, i) => {
                                                     return (
                                                         <div key={i} className='card'>
-                                                            <Card.Img className='img' variant="top" src={`http://localhost:5000/api/v1/products/get-photo/${product?._id}`} />
+                                                            <Card.Img className='img' variant="top" src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product?._id}`} />
                                                             <Card.Body>
                                                                 <Card.Title>{product?.name}</Card.Title>
                                                                 <Card.Text>{product?.description}</Card.Text>

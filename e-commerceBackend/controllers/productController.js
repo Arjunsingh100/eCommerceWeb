@@ -194,7 +194,6 @@ module.exports.productCountController = async (req, res) => {
 
 module.exports.categoryFilterController = async (req, res) => {
     try {
-        console.log(req.params.Cid)
         const filterProducts = await productModel.find({ category: req.params.Cid });
         res.status(201).send({
             success: true,
@@ -266,7 +265,6 @@ module.exports.productCategoryController = async (req, res) => {
         const { slug } = req.params;
         const category = await categoryModel.find({ slug: slug });
         const products = await productModel.find({ category }).select('-photo').populate('category');
-        console.log(products.length)
         res.status(201).send({
             success: true,
             message: 'Category Product Successfully',

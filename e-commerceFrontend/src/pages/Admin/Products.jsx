@@ -10,7 +10,7 @@ const Products = () => {
     const [products, setProducts] = useState([])
     const getAllProducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/v1/products/get-products');
+            const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/get-products');
             if (data?.success) {
                 setProducts(data?.allProducts)
                 toast.success(data?.message);
@@ -42,7 +42,7 @@ const Products = () => {
                                     return (
                                          <Link key={product._id} to= {`/dashboard/admin/update-product/${product.slug}`}>
                                          <div className='product'>
-                                            <img style={{ width: '200px', height: '200px' }} src={`http://localhost:5000/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                                            <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                                             <div>
                                                 <h5>{product.name}</h5>
                                                 <p>{product.description}</p>

@@ -16,7 +16,7 @@ const CreateCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:5000/api/v1/category/create-category', {
+      const { data } = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/category/create-category', {
         name,
       });
       if (data?.success) {
@@ -32,10 +32,9 @@ const CreateCategory = () => {
     }
   }
   const getAllCategories = async () => {
-    const allCategories = await axios.get('http://localhost:5000/api/v1/category/get-categories');
+    const allCategories = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/category/get-categories');
     if (allCategories?.data.success) {
       setCategories(allCategories?.data?.allCategories)
-      console.log(allCategories?.data?.allCategories)
     }
     else {
       toast.error(allCategories.data.message);
@@ -48,7 +47,7 @@ const CreateCategory = () => {
     e.preventDefault();
      try{
       setOpen(false);
-    const {data} = await axios.put(`http://localhost:5000/api/v1/category/update-category/${selected}`,{
+    const {data} = await axios.put(`https://ecommerceweb-1.onrender.com/api/v1/category/update-category/${selected}`,{
       name:updateName,
     })
     if(data?.success){
@@ -66,7 +65,7 @@ const CreateCategory = () => {
   }
   const handleDelete = async (id) =>{
     try{
-      const {data} = await axios.delete(`http://localhost:5000/api/v1/category/delete-category/${id}`);
+      const {data} = await axios.delete(`https://ecommerceweb-1.onrender.com/api/v1/category/delete-category/${id}`);
       if(data?.success){
         toast.success(data.message);
         getAllCategories();

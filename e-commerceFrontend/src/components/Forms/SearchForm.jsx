@@ -9,7 +9,7 @@ const SearchForm = () => {
   const [values, setValues] = useSearch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axios.get(`http://localhost:5000/api/v1/products/search/${values.keyword}`);
+    const { data } = await axios.get(`https://ecommerceweb-1.onrender.com/api/v1/products/search/${values.keyword}`);
     setValues({ ...values, results: data?.products })
     navigate('/search');
   }

@@ -18,7 +18,7 @@ const CategoryProduct = () => {
 
     const getProducts = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/products/product-category/${Params.slug}`)
+            const { data } = await axios.get(`https://ecommerceweb-1.onrender.com/api/v1/products/product-category/${Params.slug}`)
             if (data?.success) {
                 setProducts(data?.products)
             }
@@ -45,7 +45,7 @@ const CategoryProduct = () => {
                             products.map((product) => {
                                 return (
                                     <div key={product._id} className='product'>
-                                        <img style={{ width: '200px', height: '200px' }} src={`http://localhost:5000/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                                        <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                                         <div style={{ textAlign: 'center' }}>
                                             <h5>{product.name}</h5>
                                             <p>{product.price}</p>

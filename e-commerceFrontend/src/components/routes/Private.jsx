@@ -10,7 +10,7 @@ export default function () {
 
     useEffect(()=>{
         const checkAuth = async ()=>{
-            const res = await axios.get('http://localhost:5000/api/v1/auth/user-auth');
+            const res = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/auth/user-auth');
             if(res.data.Ok){
                 setOk(true)
             }

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import Price from '../components/Price.js';
 import { Radio } from 'antd'
 import { useCart } from '../context/cart.jsx';
+import dotevn from 'dotenv'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Home = () => {
     }
   }, [])
   const getAllCategories = async () => {
-    const allCategories = await axios.get('http://localhost:5000/api/v1/category/get-categories');
+    const allCategories = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/category/get-categories');
     if (allCategories?.data.success) {
       setCategories(allCategories?.data?.allCategories)
     }
@@ -36,7 +37,7 @@ const Home = () => {
   }, []);
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/v1/products/get-products');
+      const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/get-products'); 
       if (data?.success) {
         setProducts(data?.allProducts)
         toast.success(data?.message);
@@ -57,10 +58,10 @@ const Home = () => {
   useEffect(() => {
     filterCategories();
     //eslint-disable-next-line
-  }, [checked.length >0])
+  }, [checked])
   const filterCategories = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/v1/products/category-filter/${checked}`);
+      const { data } = await axios.get(`https://ecommerceweb-1.onrender.com/api/v1/products/category-filter/${checked}`);
 
       if (data?.success) {
         setProducts(data?.filterProducts);
@@ -131,7 +132,7 @@ const Home = () => {
                 products.map((product) => {
                   return (
                     <div key={product._id} className='product'>
-                      <img style={{ width: '200px', height: '200px' }} src={`http://localhost:5000/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                      <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                       <div style={{ textAlign: 'center' }}>
                         <h5>{product.name}</h5>
                         <p>{product.price}</p>

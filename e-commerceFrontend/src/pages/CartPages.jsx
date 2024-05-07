@@ -31,17 +31,14 @@ const CartPages = () => {
         const Index = myCart.findIndex((ele) => {
             return ele._id === cid;
         })
-        console.log(Index)
         myCart.splice(Index, 1);
-        console.log(myCart)
         setCart(myCart)
         localStorage.setItem('cart', JSON.stringify(myCart))
     }
 
     const getToken = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/v1/products/braintree/token');
-            console.log(data)
+            const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/braintree/token');
             setClientToken(data?.clientToken);
         }
         catch (error) {
@@ -56,7 +53,7 @@ const CartPages = () => {
         try {
             setLoading(true)
             const { nonce } = await instance.requestPaymentMethod();
-            const { data } = await axios.post('http://localhost:5000/api/v1/products/braintree/payment', { cart, nonce });
+            const { data } = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/products/braintree/payment', { cart, nonce });
             setLoading(false);
             localStorage.removeItem('cart');
             setCart([]);
@@ -92,7 +89,7 @@ const CartPages = () => {
                                     return (
                                         <div key={c._id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', border: '1px solid gray' }} >
                                             <div>
-                                                <img style={{ width: '200px', height: '200px' }} src={`http://localhost:5000/api/v1/products/get-photo/${c._id}`} alt='product_img' />
+                                                <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${c._id}`} alt='product_img' />
                                             </div>
                                             <div style={{marginLeft:'15px'}}>
                                                 <h5>{c.name}</h5>

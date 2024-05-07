@@ -40,7 +40,6 @@ module.exports.loginController = async (req, res) => {
             })
         }
         const match = comparePassword(password, user.password);
-        console.log(match)
         if (match === false) {
             return res.status(200).send({
                 success: false,
@@ -111,7 +110,6 @@ module.exports.updateProfileController = async (req, res) => {
     try {
         const { name, email, password, phone, address } = req.body;
         const user = await userModel.find({ _id: req.user._id });
-        console.log(user)
         if (!password) {
             return res.status(500).send({
                 success: false,
