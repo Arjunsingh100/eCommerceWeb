@@ -82,7 +82,7 @@ const CartPages = () => {
                             </p>
                         </h1>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px', justifyContent: 'center', border: '1px solid gray' }}>
+                    <div className='cart-page'>
                         <div>
                             {
                                 cart.length > 0 && cart?.map((c) => {
@@ -149,6 +149,12 @@ const CartPages = () => {
 }
 
 const Container = styled.div`
+.cart-page {
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    gap:20px;
+}
 button {
     padding:6px;
     border:none;
@@ -158,6 +164,14 @@ button {
     color:white;
     border-radius:9px;
     margin-bottom:3px;
+}
+@media screen and (max-width:858px){
+    .cart-page {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+    }
 }
 `
 
