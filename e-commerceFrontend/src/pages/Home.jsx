@@ -133,7 +133,7 @@ const Home = () => {
                   return (
                     <button style={{outline:'none',border:'none',borderRadius:'9px'}} className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>
                       <div key={product._id} className='product'>
-                        <img style={{ width: '200px', height: '200px'}} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                        <img src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                         <div className='product-info' style={{ textAlign: 'center' }}>
                           <h5>{product.name}</h5>
                           <p>{product.price}</p>
@@ -185,6 +185,10 @@ justify-content:center;
           border-radius: 9px;
           overflow:hidden;
           outline:none;
+          img {
+            width:200px;
+            height:200px;
+          }
           .more-detail-btn{
             border:none;
             outline:none;
@@ -247,6 +251,11 @@ gap:0px;
       justify-content:center;
       gap:17px;
       .product {
+        width:170px;
+        img {
+          width:170px;
+          height:170px;
+        }
         .product-info{
           line-height:11px;
         }

@@ -67,7 +67,7 @@ const ProductDetails = () => {
                                 return (
                                     <button style={{ outline: 'none', border: 'none', borderRadius: '9px', overflow:'hidden' }} onClick={() => { navigate(`/product/${product.slug}`) }}>
                                         <div key={product._id} className='product'>
-                                            <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                                            <img src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                                             <div className='product-info'>
                                                 <h5>{product.name}</h5>
                                                 <p>{product.price}</p>
@@ -114,6 +114,10 @@ row-gap:20px;
         flex-wrap:wrap;
         gap:20px;
         .product{
+            img {
+                width:200px;
+                height:200px;
+            }
             .buttons{
             .add-cart-btn{
               border:none;
@@ -146,6 +150,10 @@ row-gap:20px;
         gap:15px;
         .products-container {
             .product {
+                img {
+                    widht:170px;
+                    height:170px;
+                }
                 .product-info {
                     line-height:11px;
                 }
