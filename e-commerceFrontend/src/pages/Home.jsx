@@ -37,7 +37,7 @@ const Home = () => {
   }, []);
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/get-products'); 
+      const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/get-products');
       if (data?.success) {
         setProducts(data?.allProducts)
         toast.success(data?.message);
@@ -131,22 +131,24 @@ const Home = () => {
               {
                 products.map((product) => {
                   return (
-                    <div key={product._id} className='product'>
-                      <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
-                      <div style={{ textAlign: 'center' }}>
-                        <h5>{product.name}</h5>
-                        <p>{product.price}</p>
-                        <p>{product.description}</p>
+                    <button style={{outline:'none',border:'none',borderRadius:'9px'}} className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>
+                      <div key={product._id} className='product'>
+                        <img style={{ width: '200px', height: '200px'}} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                        <div className='product-info' style={{ textAlign: 'center' }}>
+                          <h5>{product.name}</h5>
+                          <p>{product.price}</p>
+                          <p>{product.description}</p>
+                        </div>
+                        <div className='buttons'>
+                          {/* <button className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button> */}
+                          <button onClick={() => {
+                            setCart([...cart, product]);
+                            localStorage.setItem('cart', JSON.stringify([...cart, product]));
+                            toast.success('Product added to cart Successfully')
+                          }} className='add-cart-btn'>Add to Cart</button>
+                        </div>
                       </div>
-                      <div className='buttons'>
-                        <button className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button>
-                        <button onClick={() => {
-                          setCart([...cart, product]);
-                          localStorage.setItem('cart', JSON.stringify([...cart, product]));
-                          toast.success('Product added to cart Successfully')
-                        }} className='add-cart-btn'>Add to Cart</button>
-                      </div>
-                    </div>
+                    </button>
                   )
                 })
               }
@@ -182,18 +184,14 @@ justify-content:center;
           border:2px solid green;
           border-radius: 9px;
           overflow:hidden;
+          outline:none;
+          .more-detail-btn{
+            border:none;
+            outline:none;
+          }
           .buttons{
             width:100%;
             text-align:center;
-            .more-detail-btn{
-              padding:6px;
-              border:none;
-              outline:none;
-              text-align:center;
-              background-color:#aa12ff;
-              color:white;
-              border-radius:9px;
-            }
             .add-cart-btn{
               padding:6px;
               border:none;
@@ -219,6 +217,42 @@ justify-content:center;
     color:white;
     border-radius:9px;
     margin-top:13px;
+  }
+}
+@media screen and (max-width:854px) {
+  .home-container {
+width:90vw;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:0px;
+.filter-container {
+  width:100vw;
+  background-color:#f3d7d7;
+}
+.products-container{
+    background-color:#e487f3;
+    width:100vw;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    row-gap:20px;
+    .products {
+      display:flex;
+      flex-direction:row;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:17px;
+      .product {
+        .product-info{
+          line-height:11px;
+        }
+      }
+    }
+}
   }
 }
 `

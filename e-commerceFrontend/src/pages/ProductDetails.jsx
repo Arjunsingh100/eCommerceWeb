@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
+import { useCart } from '../context/cart';
 
 const ProductDetails = () => {
     const navigate = useNavigate();
     const [product, setProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([])
+    const [cart,setCart] = useCart();
     const Params = useParams();
 
     const getRelatedProducts = async () => {
@@ -63,18 +65,23 @@ const ProductDetails = () => {
                         {
                             relatedProducts.map((product) => {
                                 return (
-                                    <div key={product._id} className='product'>
-                                        <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
-                                        <div>
-                                            <h5>{product.name}</h5>
-                                            <p>{product.price}</p>
-                                            <p>{product.description}</p>
+                                    <button style={{ outline: 'none', border: 'none', borderRadius: '9px', overflow:'hidden' }} onClick={() => { navigate(`/product/${product.slug}`) }}>
+                                        <div key={product._id} className='product'>
+                                            <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                                            <div className='product-info'>
+                                                <h5>{product.name}</h5>
+                                                <p>{product.price}</p>
+                                                <p>{product.description}</p>
+                                            </div>
+                                            <div className='buttons'>
+                                                <button className='add-cart-btn' onClick={()=>{
+                                                    setCart([...cart,product]);
+                                                    localStorage.setItem('cart',JSON.stringify([...cart,product]))
+                                                    toast.success('Product added to cart successfully')
+                                                }}>Add to Cart</button>
+                                            </div>
                                         </div>
-                                        <div className='buttons'>
-                                            <button className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button>
-                                            <button className='add-cart-btn'>Add to Cart</button>
-                                        </div>
-                                    </div>
+                                    </button>
                                 )
                             })
                         }
@@ -103,29 +110,46 @@ row-gap:20px;
     .products-container{
         display:flex;
         flex-direction:row;
+        justify-content:center;
         flex-wrap:wrap;
         gap:20px;
         .product{
             .buttons{
-            .more-detail-btn{
-              border:none;
-              outline:none;
-              padding:8px;
-              text-align:center;
-              background-color:#aa12ff;
-              color:white;
-              border-radius:9px;
-            }
             .add-cart-btn{
               border:none;
               outline:none;
               padding:8px;
+              margin-bottom:9px;
               text-align:center;
               background-color:gray;
               color:white;
               border-radius:9px;
             }
           }
+        }
+    }
+}
+@media screen and (max-width:675px) {
+    .product-details{
+       column-gap:20px; 
+       div {
+        img {
+            width:200px;
+            height:256px;
+        }
+       }
+    }
+    .similar-products {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+        .products-container {
+            .product {
+                .product-info {
+                    line-height:11px;
+                }
+            }
         }
     }
 }
