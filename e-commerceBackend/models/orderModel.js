@@ -7,6 +7,9 @@ const orderSchema = new mongoose.Schema({
             ref: 'products',
         },
     ],
+    productsQuantity: {
+        type: Array,
+    },
     payment: {},
     buyer: {
         type: mongoose.ObjectId,

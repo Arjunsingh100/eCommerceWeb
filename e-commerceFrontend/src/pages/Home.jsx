@@ -38,9 +38,9 @@ const Home = () => {
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/get-products');
+      console.log(data)
       if (data?.success) {
         setProducts(data?.allProducts)
-        toast.success(data?.message);
       }
       else {
         toast.error(data?.message)
@@ -129,26 +129,27 @@ const Home = () => {
             <h2>All Products</h2>
             <div className='products'>
               {
-                products.map((product) => {
+                products.map((product, index) => {
                   return (
-                    <button style={{outline:'none',border:'none',borderRadius:'9px'}} className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>
-                      <div key={product._id} className='product'>
-                        <img src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
-                        <div className='product-info' style={{ textAlign: 'center' }}>
-                          <h5>{product.name}</h5>
-                          <p>{product.price}</p>
-                          <p>{product.description}</p>
+                    <>
+                      <button key={index} style={{ outline: 'none', border: 'none', borderRadius: '9px' }} className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>
+                        <div key={product._id} className='product'>
+                          <img src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
+                          <div className='product-info' style={{ textAlign: 'center' }}>
+                            <h5>{product.name}</h5>
+                            <p>{product.price}</p>
+                            <p>{product.description}</p>
+                          </div>
+                          <div className='buttons'>
+                            <button onClick={() => {
+                              setCart([...cart, product]);
+                              localStorage.setItem('cart', JSON.stringify([...cart, product]));
+                              toast.success('Product added to cart Successfully')
+                            }} className='add-cart-btn'>Add to Cart</button>
+                          </div>
                         </div>
-                        <div className='buttons'>
-                          {/* <button className='more-detail-btn' onClick={() => { navigate(`/product/${product.slug}`) }}>More Details</button> */}
-                          <button onClick={() => {
-                            setCart([...cart, product]);
-                            localStorage.setItem('cart', JSON.stringify([...cart, product]));
-                            toast.success('Product added to cart Successfully')
-                          }} className='add-cart-btn'>Add to Cart</button>
-                        </div>
-                      </div>
-                    </button>
+                      </button>
+                    </>
                   )
                 })
               }

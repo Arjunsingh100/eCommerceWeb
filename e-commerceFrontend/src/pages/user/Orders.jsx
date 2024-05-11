@@ -16,7 +16,7 @@ const Orders = () => {
     const getAllOrders = async () => {
         try {
             const { data } = await axios.get('https://ecommerceweb-1.onrender.com/api/v1/products/orders');
-            setOrders(data.orders);
+            setOrders(data?.orders);
         }
         catch (error) {
             console.log(error)
@@ -62,6 +62,7 @@ const Orders = () => {
                                                             </Card.Body>
                                                             <Card.Footer>
                                                                 <small className="text-muted">Price: {product?.price}</small>
+                                                                <small>  Quantity: {order?.productsQuantity[i]}</small>
                                                             </Card.Footer>
                                                         </div>
                                                     )

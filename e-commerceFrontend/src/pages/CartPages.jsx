@@ -21,7 +21,7 @@ const CartPages = () => {
     const totalPrice = () => {
         let total = 0;
         cart.map((p) => {
-            return total = total + p.price
+            return total = total +  (!p.userQuantity ? 1 : p.userQuantity)*p.price
         })
         return total;
     }
@@ -49,11 +49,12 @@ const CartPages = () => {
         getToken();
     }, [auth?.token])
 
+
     const handlePayment = async () => {
         try {
             setLoading(true)
             const { nonce } = await instance.requestPaymentMethod();
-            const { data } = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/products/braintree/payment', { cart, nonce });
+            const { data } = await axios.post('http://localhost:5000/api/v1/products/braintree/payment', { cart, nonce });
             setLoading(false);
             localStorage.removeItem('cart');
             setCart([]);
@@ -65,6 +66,15 @@ const CartPages = () => {
         }
     }
 
+    const handleChange = (id, value) => {
+        cart.filter((c,i)=>{
+            if(c._id === id) {
+                c.userQuantity=value
+                setCart([...cart])
+                localStorage.setItem('cart',JSON.stringify([...cart]))
+            }
+        })
+    }
     return (
         <Layout>
             <Container>
@@ -91,11 +101,12 @@ const CartPages = () => {
                                             <div>
                                                 <img style={{ width: '200px', height: '200px' }} src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${c._id}`} alt='product_img' />
                                             </div>
-                                            <div style={{marginLeft:'15px'}}>
+                                            <div style={{ marginLeft: '15px' }}>
                                                 <h5>{c.name}</h5>
                                                 <h5>{c.description}</h5>
                                                 <h5>{c.price}</h5>
-                                                <button style={{backgroundColor:'rgb(200,12,12)'}} onClick={() => { handleCartRemove(c._id) }}>Remove</button>
+                                                <input type='number'min='1' placeholder='Quantity' value={c?.userQuantity ? c?.userQuantity : '1'} max={c.quantity} name='quantity' onChange={(e) => { handleChange(c._id, e.target.value) }}></input>
+                                                <button style={{ backgroundColor: 'rgb(200,12,12)' }} onClick={() => { handleCartRemove(c._id) }}>Remove</button>
                                             </div>
                                         </div>
                                     )

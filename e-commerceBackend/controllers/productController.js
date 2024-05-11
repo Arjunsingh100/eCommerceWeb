@@ -301,9 +301,14 @@ module.exports.paymentTokenController = async (req, res) => {
 module.exports.paymentController = async (req, res) => {
     try {
         const { cart, nonce } = req.body;
+        let productsQuantity = []
+        cart.map((product,i)=>{
+            productsQuantity.push(!product.userQuantity ? '1' : product.userQuantity);
+        })
+        console.log("this is payment Controller")
         let total = 0;
         cart.map((i) => {
-            total = total + i.price;
+            total = total + (!i.userQuantity ? 1 : i.userQuantity)*i.price;
         })
         gateway.transaction.sale({
             amount: total,
@@ -316,6 +321,7 @@ module.exports.paymentController = async (req, res) => {
                 if (result) {
                     const order = new orderModel({
                         products: cart,
+                        productsQuantity: productsQuantity,
                         payment: result,
                         buyer: req.user._id,
                     }).save();

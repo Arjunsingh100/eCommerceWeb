@@ -63,9 +63,9 @@ const ProductDetails = () => {
                     <h2>Similiar Products</h2>
                     <div className='products-container'>
                         {
-                            relatedProducts.map((product) => {
+                            relatedProducts.map((product,index) => {
                                 return (
-                                    <button style={{ outline: 'none', border: 'none', borderRadius: '9px', overflow:'hidden' }} onClick={() => { navigate(`/product/${product.slug}`) }}>
+                                    <button key={index} style={{ outline: 'none', border: 'none', borderRadius: '9px', overflow:'hidden' }} onClick={() => { navigate(`/product/${product.slug}`) }}>
                                         <div key={product._id} className='product'>
                                             <img src={`https://ecommerceweb-1.onrender.com/api/v1/products/get-photo/${product._id}`} alt='product_img' />
                                             <div className='product-info'>
