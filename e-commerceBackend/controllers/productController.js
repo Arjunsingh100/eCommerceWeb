@@ -305,7 +305,6 @@ module.exports.paymentController = async (req, res) => {
         cart.map((product,i)=>{
             productsQuantity.push(!product.userQuantity ? '1' : product.userQuantity);
         })
-        console.log("this is payment Controller")
         let total = 0;
         cart.map((i) => {
             total = total + (!i.userQuantity ? 1 : i.userQuantity)*i.price;

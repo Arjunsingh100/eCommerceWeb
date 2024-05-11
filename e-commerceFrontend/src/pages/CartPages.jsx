@@ -54,7 +54,7 @@ const CartPages = () => {
         try {
             setLoading(true)
             const { nonce } = await instance.requestPaymentMethod();
-            const { data } = await axios.post('http://localhost:5000/api/v1/products/braintree/payment', { cart, nonce });
+            const { data } = await axios.post('https://ecommerceweb-1.onrender.com/api/v1/products/braintree/payment', { cart, nonce });
             setLoading(false);
             localStorage.removeItem('cart');
             setCart([]);
